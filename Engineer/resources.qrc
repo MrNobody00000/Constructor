@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Icons/Back.png</file>
+        <file>Icons/Programming.png</file>
+        <file>Icons/Testing.png</file>
+        <file>Icons/dcL.png</file>
+        <file>Icons/ledL.png</file>
+        <file>Icons/levelL.png</file>
+        <file>Icons/moistL.png</file>
+        <file>Icons/motioL.png</file>
+        <file>Icons/pumpL.png</file>
+        <file>Icons/sdL.png</file>
+        <file>Icons/tempL.png</file>
+        <file>Icons/voiceL.png</file>
+    </qresource>
+</RCC>
