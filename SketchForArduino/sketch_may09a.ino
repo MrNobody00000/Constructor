@@ -44,13 +44,6 @@ void setup()
 void loop()
 { int data[10];
   int counter = 0;
-/* static byte prevAm = 0;
-  static uint32_t tmr = 0;
-  byte am = Serial.available();
-  if (am != prevAm){
-    prevAm = am;
-    tmr = millis();
-  }*/
   if ((Serial.available()>1 /*& (am & millis() - tmr >50)*/)){
     char str[30];
     int amount = Serial.readBytesUntil(';',str,30);   // TERMINATOR = ';'
@@ -59,20 +52,7 @@ void loop()
     Parser cata(str,',');
     int am = cata.split();
     for (int i =0; i<am;i++) data[i] = atoi(cata[i]);
-   
-    /*char  *rest = NULL;
-    char *token;
-    for (token = strtok_r(str,",",&rest);   //DELIMITER = ","
-    token!=NULL;
-    token = strtok_r(NULL,",",&rest)){
-      data[counter] = atoi(token);
-      counter++;  
-    }*/
-    
-    //Servo1.write(90);
-  //Serial.println(data[1]);
-    //Serial.println(data[2]);
-    //Serial.println(data[3]);
+
    
   }
   
@@ -92,31 +72,19 @@ void loop()
     case(6):
       TSensor.requestTemperatures();
       float TValue = TSensor.getTempCByIndex(0);
-      //Serial.print("6,");
-          //Serial.print(TValue);
-          //Serial.print(';');    
+
       digitalWrite(sensorPower, HIGH);  // Включить датчик
   delay(10);                        // Ждать 10 миллисекунд
   int level = analogRead(sensorPin);  // Прочитать аналоговое значение от датчика
   digitalWrite(sensorPower, LOW);
-      //Serial.print("6,");
-          //Serial.println(level);
-          //Serial.print(';');
 
     int MSValue = analogRead(MSPin);
     float MSconv = MSValue * 0.073;
-                            //Serial.print("Moist:");
-    //Serial.print("8,");                        
-        //Serial.print(MSconv);
-        //Serial.print(';');
+
         int i = 0;
     char sendData[30];
          vals = (String(TValue) + ',' + String(level) + ',' + String(MSconv) );
-       /*while (vals[i] != ';') {
-           sendData[i] = vals[i];
-           i++;
-       }
-       sendData[i] = vals[i];*/
+
        Serial.println(vals);
        data[0] = ' ';
        
