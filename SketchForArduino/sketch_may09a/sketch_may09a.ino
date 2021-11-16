@@ -4,7 +4,7 @@
 #include "Adafruit_NeoPixel.h"
 #include <string.h>
 #include <stdio.h>
-#include "Parser.h"
+//#include "Parser.h"
 
 
 #define TPin A3// пин подключения датчика температуры
@@ -42,29 +42,45 @@ void setup()
     }
    
 void loop()
-{ int data[10];
-  int counter = 0;
-  if ((Serial.available()>1 /*& (am & millis() - tmr >50)*/)){
-    char str[30];
-    int amount = Serial.readBytesUntil(';',str,30);   // TERMINATOR = ';'
-    str[amount] = NULL;
+{ 
 
-    Parser cata(str,',');
-    int am = cata.split();
-    for (int i =0; i<am;i++) data[i] = atoi(cata[i]);
+  // int data[10];
+  // int counter = 0;
+  // if ((Serial.available()>1 /*& (am & millis() - tmr >50)*/)){
+  //   char str[30];
+  //   int amount = Serial.readBytesUntil(';',str,30);   // TERMINATOR = ';'
+  //   str[amount] = NULL;
+
+  //   Parser cata(str,',');
+  //   int am = cata.split();
+  //   for (int i =0; i<am;i++) data[i] = atoi(cata[i]);
 
    
+  // }
+  int data[4];
+  char str[30];
+  if(Serial.available()){
+    int amount = Serial.readBytesUntil(';',str,30);
+    str[amount] = NULL;
+    
   }
+  // we need init_state = readyRead 
+  //wait for incoming msg
+  //wait for stop symb
+  //parse all
+  //react for commands
+  //  IF (HAVE OUTCOME MSG){ send msg; send stop symb;}
+  //  ELSE {send stop symb (ONCE)}
   
 
   String vals;
   
   switch (data[0]){
     case(1): Servo1.write(data[1]); data[0] = ' '; break; 
-    case(2): for (int i = 0; i < LED_COUNT; i++)
+    case(2): 
+      for (int i = 0; i < LED_COUNT; i++)
       {
-        strip.setPixelColor(i, strip.Color(data[1],data[2],data[3]));
-        
+        strip.setPixelColor(i, strip.Color(data[1],data[2],data[3]));        
       }
       strip.show();
       data[0] = ' ';
@@ -74,20 +90,19 @@ void loop()
       float TValue = TSensor.getTempCByIndex(0);
 
       digitalWrite(sensorPower, HIGH);  // Включить датчик
-  delay(10);                        // Ждать 10 миллисекунд
-  int level = analogRead(sensorPin);  // Прочитать аналоговое значение от датчика
-  digitalWrite(sensorPower, LOW);
+      delay(10);                        // Ждать 10 миллисекунд
+      int level = analogRead(sensorPin);  // Прочитать аналоговое значение от датчика
+      digitalWrite(sensorPower, LOW);
 
-    int MSValue = analogRead(MSPin);
-    float MSconv = MSValue * 0.073;
+      int MSValue = analogRead(MSPin);
+      float MSconv = MSValue * 0.073;
 
-        int i = 0;
-    char sendData[30];
-         vals = (String(TValue) + ',' + String(level) + ',' + String(MSconv) );
+      int i = 0;
+      char sendData[30];
+      vals = (String(TValue) + ',' + String(level) + ',' + String(MSconv) );
 
-       Serial.println(vals);
-       data[0] = ' ';
-       
+      Serial.println(vals);
+      data[0] = ' ';       
     break;
     case(7):
     delay(data[1]);

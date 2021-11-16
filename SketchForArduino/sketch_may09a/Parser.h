@@ -8,17 +8,21 @@ class Parser {
       buf = data;
       div = newDiv;
     }
+
     ~Parser() {
       clear();
     }
+
     void clear() {
       if (str) free(str);
     }
+
     int amount() {
       int i = 0, count = 0;
       while (buf[i++]) if (buf[i] == div) count++;  // подсчёт разделителей
       return ++count;
     }
+
     int split() {
       int am = amount();            // количество данных
       clear();                      // освобождаем буфер
@@ -34,12 +38,15 @@ class Parser {
       }
       return am;
     }
+
     int16_t getInt(int num) {
       return atol(str[num]);
     }
+
     float getFloat(int num) {
       return atof(str[num]);
     }
+    
     bool equals(int num, const char* comp) {
       return !strcmp(str[num], comp);
     }
