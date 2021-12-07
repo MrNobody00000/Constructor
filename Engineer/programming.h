@@ -30,17 +30,11 @@ public:
     ~Programming();
 
 private slots:
-    void on_treeWidget_itemDoubleClicked(QTreeWidgetItem *item, int column);
-    void comNameChanged1(int);
-    void CheckComs1();
+    //void comNameChanged1(int);
+    //void CheckComs1();
+    //void on_comNumber1_activated(int index);
 
-    void on_pushButton_2_clicked();
-
-    void on_pushButton_clicked();
-
-    void on_comNumber1_activated(int index);
-
-    void on_pushButton_3_clicked();
+   // void on_pushButton_3_clicked();
 
 private:
    Ui::Form *ui;

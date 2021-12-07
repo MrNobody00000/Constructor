@@ -2,6 +2,9 @@
 #define Parser_h
 // простой и быстрый парсер строк в отдельные строки и числа
 
+#include<iostream>
+#include<cstdlib>
+
 class Parser {
   public:
     Parser (char* data, char newDiv = ',') {
@@ -22,7 +25,7 @@ class Parser {
     int split() {
       int am = amount();            // количество данных
       clear();                      // освобождаем буфер
-      str = (char**)malloc(am * sizeof(char*)); // создаём буфер
+      str = (char**) malloc(am * sizeof(char*)); // создаём буфер
       str[0] = buf;                 // строка 0
       int i = 0, j = 0;             // счётчики
       while (buf[i]) {              // пока не NULL
@@ -54,7 +57,7 @@ class Parser {
       }
       return count;
     }
-    int parseBytes(byte* data) {
+    int parseBytes(unsigned char* data) {
       int count = 0;
       char* offset = buf;
       while (true) {
