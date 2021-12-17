@@ -2,14 +2,6 @@
 #include "greetingwindow.h"
 #include "ui_programming2.h"
 
-std::vector<std::string> command;
-int millis;
-
-QString servoObject;
-QString rgbObject;
-QString tempObject;
-
-
 
 Programming::Programming(GreetingWindow *parent)
     : QWidget(parent)
@@ -17,6 +9,7 @@ Programming::Programming(GreetingWindow *parent)
 {
     fromHead = parent;
     ui->setupUi(this);
+    this->showMaximized();
     serial = new QSerialPort(this);
 
     //CheckComs1();
