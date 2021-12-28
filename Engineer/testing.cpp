@@ -40,26 +40,26 @@ void Testing::createWidgets()
     tempLabel   = new QLabel;
     tempValue   = new QLineEdit;
     tempCheck   = new QCheckBox;
-    dcLabel     = new QLabel;
-    dcValue     = new QLineEdit;
-    dcCheck     = new QCheckBox;
-    motioLabel  = new QLabel;
-    motioValue  = new QLineEdit;
-    motioCheck  = new QCheckBox;
+    //dcLabel     = new QLabel;
+    //dcValue     = new QLineEdit;
+    //dcCheck     = new QCheckBox;
+    //motioLabel  = new QLabel;
+    //motioValue  = new QLineEdit;
+    //motioCheck  = new QCheckBox;
     moistLabel  = new QLabel;
     moistValue  = new QLineEdit;
     moistCheck  = new QCheckBox;
-    voiceLabel  = new QLabel;
-    voiceValue  = new QLineEdit;
-    voiceCheck  = new QCheckBox;
+   //voiceLabel  = new QLabel;
+   // voiceValue  = new QLineEdit;
+    //voiceCheck  = new QCheckBox;
     levelLabel  = new QLabel;
     levelValue  = new QLineEdit;
     levelCheck  = new QCheckBox;
     //Output vars
     outputBox       = new QGroupBox;
     outputLayout    = new QGridLayout;
-    pumpLabel   = new QLabel;
-    pumpSwitch  = new QPushButton;
+    //pumpLabel   = new QLabel;
+    //pumpSwitch  = new QPushButton;
     sdLabel     = new QLabel;
     //sdAngle     = new QPushButton("Отправить пакет");
     sdControl   = new QDial;
@@ -84,18 +84,18 @@ void Testing::layoutWidgets()
     inputLayout->addWidget(tempLabel,0,0);
     inputLayout->addWidget(tempValue,0,0,Qt::AlignBottom | Qt::AlignCenter);
     inputLayout->addWidget(tempCheck,0,0,Qt::AlignTop | Qt::AlignRight);
-    inputLayout->addWidget(dcLabel,0,1);
-    inputLayout->addWidget(dcValue,0,1,Qt::AlignBottom | Qt::AlignCenter);
-    inputLayout->addWidget(dcCheck,0,1,Qt::AlignTop | Qt::AlignRight);
-    inputLayout->addWidget(motioLabel,0,2);
-    inputLayout->addWidget(motioValue,0,2,Qt::AlignBottom | Qt::AlignCenter);
-    inputLayout->addWidget(motioCheck,0,2,Qt::AlignTop | Qt::AlignRight);
+    //inputLayout->addWidget(dcLabel,0,1);
+    //inputLayout->addWidget(dcValue,0,1,Qt::AlignBottom | Qt::AlignCenter);
+    //inputLayout->addWidget(dcCheck,0,1,Qt::AlignTop | Qt::AlignRight);
+    //inputLayout->addWidget(motioLabel,0,2);
+    //inputLayout->addWidget(motioValue,0,2,Qt::AlignBottom | Qt::AlignCenter);
+    //inputLayout->addWidget(motioCheck,0,2,Qt::AlignTop | Qt::AlignRight);
     inputLayout->addWidget(moistLabel,0,3);
     inputLayout->addWidget(moistValue,0,3,Qt::AlignBottom | Qt::AlignCenter);
     inputLayout->addWidget(moistCheck,0,3,Qt::AlignTop | Qt::AlignRight);
-    inputLayout->addWidget(voiceLabel,0,4);
-    inputLayout->addWidget(voiceValue,0,4,Qt::AlignBottom | Qt::AlignCenter);
-    inputLayout->addWidget(voiceCheck,0,4,Qt::AlignTop | Qt::AlignRight);
+    //inputLayout->addWidget(voiceLabel,0,4);
+    //inputLayout->addWidget(voiceValue,0,4,Qt::AlignBottom | Qt::AlignCenter);
+    //inputLayout->addWidget(voiceCheck,0,4,Qt::AlignTop | Qt::AlignRight);
     inputLayout->addWidget(levelLabel,0,5);
     inputLayout->addWidget(levelValue,0,5,Qt::AlignBottom | Qt::AlignCenter);
     inputLayout->addWidget(levelCheck,0,5,Qt::AlignTop | Qt::AlignRight);
@@ -104,8 +104,8 @@ void Testing::layoutWidgets()
     inputLayout->addWidget(getValuesButton,1,5,Qt::AlignRight);
 
     outputBox->setLayout(outputLayout);
-    outputLayout->addWidget(pumpLabel,0,0);
-    outputLayout->addWidget(pumpSwitch,1,0,Qt::AlignBottom | Qt::AlignCenter);
+    //outputLayout->addWidget(pumpLabel,0,0);
+    //outputLayout->addWidget(pumpSwitch,1,0,Qt::AlignBottom | Qt::AlignCenter);
     outputLayout->addWidget(sdLabel,0,1);
     //outputLayout->addWidget(sdAngle,1,1,Qt::AlignBottom | Qt::AlignCenter);
     outputLayout->addWidget(sdControl,2,1,Qt::AlignBottom | Qt::AlignCenter);
@@ -146,28 +146,28 @@ void Testing::widgetSettings()
     outputBox->setAlignment(Qt::AlignCenter);
 
     tempLabel->setAlignment(Qt::AlignCenter);
-    dcLabel->setAlignment(Qt::AlignCenter);
-    motioLabel->setAlignment(Qt::AlignCenter);
+    //dcLabel->setAlignment(Qt::AlignCenter);
+    //motioLabel->setAlignment(Qt::AlignCenter);
     moistLabel->setAlignment(Qt::AlignCenter);
-    voiceLabel->setAlignment(Qt::AlignCenter);
+    //voiceLabel->setAlignment(Qt::AlignCenter);
     levelLabel->setAlignment(Qt::AlignCenter);
 
-    pumpLabel->setAlignment(Qt::AlignCenter);
+    //pumpLabel->setAlignment(Qt::AlignCenter);
     sdLabel->setAlignment(Qt::AlignCenter);
     ledLabel->setAlignment(Qt::AlignCenter);
 
     tempValue->setReadOnly(true);
-    dcValue->setReadOnly(true);
-    motioValue->setReadOnly(true);
+    //dcValue->setReadOnly(true);
+//    motioValue->setReadOnly(true);
     moistValue->setReadOnly(true);
-    voiceValue->setReadOnly(true);
+//    voiceValue->setReadOnly(true);
     levelValue->setReadOnly(true);
 
     tempValue->setFixedWidth(100);
-    dcValue->setFixedWidth(100);
-    motioValue->setFixedWidth(100);
+//    dcValue->setFixedWidth(100);
+ //   motioValue->setFixedWidth(100);
     moistValue->setFixedWidth(100);
-    voiceValue->setFixedWidth(100);
+   // voiceValue->setFixedWidth(100);
     levelValue->setFixedWidth(100);
 
     sdControl->setRange(0,180);
@@ -187,13 +187,13 @@ void Testing::widgetSettings()
 
     QSize size = qApp->screens()[0]->size();
     tempLabel->setPixmap(QPixmap(":/Icons/tempL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    dcLabel->setPixmap(QPixmap(":/Icons/dcL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    motioLabel->setPixmap(QPixmap(":/Icons/motioL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    //dcLabel->setPixmap(QPixmap(":/Icons/dcL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    //motioLabel->setPixmap(QPixmap(":/Icons/motioL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
     moistLabel->setPixmap(QPixmap(":/Icons/moistL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    voiceLabel->setPixmap(QPixmap(":/Icons/voiceL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    //voiceLabel->setPixmap(QPixmap(":/Icons/voiceL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
     levelLabel->setPixmap(QPixmap(":/Icons/levelL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-    pumpLabel->setPixmap(QPixmap(":/Icons/pumpL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    //pumpLabel->setPixmap(QPixmap(":/Icons/pumpL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
     sdLabel->setPixmap(QPixmap(":/Icons/sdL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
     ledLabel->setPixmap(QPixmap(":/Icons/ledL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
@@ -234,6 +234,7 @@ void Testing::sdStart()
     str[i] = data[i];
     serial->write(str);
 }
+
 void Testing::Get(){
     serial->setPortName(comNumber->currentText());
     tempValue->clear();

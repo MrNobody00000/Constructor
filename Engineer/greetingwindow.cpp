@@ -82,6 +82,7 @@ void GreetingWindow::toTestButtonS()
 }
 void GreetingWindow::backButtonS()
 {
+    //if(mainStack->currentWidget() == ;
     mainStack->setCurrentWidget(greetWindow);
     backButton->setVisible(false);
     windowTitle->setText("Программно-технический комплекс Инженер");

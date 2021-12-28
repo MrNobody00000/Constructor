@@ -12,5 +12,22 @@
         <file>Icons/sdL.png</file>
         <file>Icons/tempL.png</file>
         <file>Icons/voiceL.png</file>
+        <file>Icons/LampDis.png</file>
+        <file>Icons/LampFire.png</file>
+        <file>Icons/Strelka.png</file>
+        <file>Icons/Time.png</file>
+        <file>Icons/LampDis2.png</file>
+        <file>Icons/LampFireMini.png</file>
+        <file>Icons/StrelkaMini.png</file>
+        <file>Icons/LampDisMini.png</file>
+        <file>Icons/LampDisMini2.png</file>
+        <file>Icons/TimeMini.png</file>
+        <file>Icons/B.png</file>
+        <file>Icons/EndTrueFalse.png</file>
+        <file>Icons/Green.png</file>
+        <file>Icons/R.png</file>
+        <file>Icons/Temp.png</file>
+        <file>Icons/TrueFalse.png</file>
+        <file>Icons/More2.png</file>
     </qresource>
 </RCC>

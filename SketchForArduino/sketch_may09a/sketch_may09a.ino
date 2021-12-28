@@ -4,17 +4,18 @@
 #include "Adafruit_NeoPixel.h"
 #include <string.h>
 #include <stdio.h>
-//#include "Parser.h"
+#include "Parser.h"
 
 
-#define TPin A3// пин подключения датчика температуры
-#define sensorPin A1
-#define MSPin A2
+#define TPin A1// пин подключения датчика температуры
+#define sensorPin A3
+#define MSPin A5
 #define sensorPower 2
 #define PumpPin 13
 #define LED_COUNT 2
-#define LED_PIN 5
-#define servoPin 3
+#define LED_PIN 10
+#define servoPin 11
+
 Servo Servo1;
 
 OneWire TempValue(TPin);
@@ -44,26 +45,27 @@ void setup()
 void loop()
 { 
 
-  // int data[10];
-  // int counter = 0;
-  // if ((Serial.available()>1 /*& (am & millis() - tmr >50)*/)){
-  //   char str[30];
-  //   int amount = Serial.readBytesUntil(';',str,30);   // TERMINATOR = ';'
-  //   str[amount] = NULL;
+   int data[10];
+   int counter = 0;
+   if ((Serial.available()>1 /*& (am & millis() - tmr >50)*/)){
+     char str[30];
+     int amount = Serial.readBytesUntil(';',str,30);   // TERMINATOR = ';'
+    str[amount] = NULL;
 
-  //   Parser cata(str,',');
-  //   int am = cata.split();
-  //   for (int i =0; i<am;i++) data[i] = atoi(cata[i]);
+     Parser cata(str,',');
+     int am = cata.split();
+     for (int i =0; i<am;i++) data[i] = atoi(cata[i]);
 
    
-  // }
-  int data[4];
-  char str[30];
-  if(Serial.available()){
-    int amount = Serial.readBytesUntil(';',str,30);
-    str[amount] = NULL;
-    
   }
+  
+  //int data[4];
+  //char str[30];
+  //if(Serial.available()){
+    //int amount = Serial.readBytesUntil(';',str,30);
+    //str[amount] = NULL;
+    
+  //}
   // we need init_state = readyRead 
   //wait for incoming msg
   //wait for stop symb
@@ -88,6 +90,7 @@ void loop()
     case(6):
       TSensor.requestTemperatures();
       float TValue = TSensor.getTempCByIndex(0);
+      
 
       digitalWrite(sensorPower, HIGH);  // Включить датчик
       delay(10);                        // Ждать 10 миллисекунд
@@ -108,7 +111,8 @@ void loop()
     delay(data[1]);
     break;
     default: break;
-    
+
+    Serial.print('f');
       
   }
 
