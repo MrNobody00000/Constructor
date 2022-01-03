@@ -1,6 +1,6 @@
 
 #include "programming.h"
-#include "parser.h"
+#include "Parser.h"
 #include "greetingwindow.h"
 //#include "ui_programming2.h"
 
@@ -16,9 +16,10 @@ Programming::Programming(GreetingWindow *parent)
     ui->setupUi(this);
     this->showMaximized();
     serial = new QSerialPort(this);
+    connect(ui->comBox,SIGNAL(activated(int)),SLOT(comNameChanged1(int)));
     //CheckComs1();
     //comNameChanged1(0);
-    checkOutPage();
+    //checkOutPage();
     //setIm();
 }
 
@@ -28,12 +29,6 @@ Programming::~Programming()
     delete ui;
 }
 
-
-void Programming::checkOutPage(){
-    if(ui->stackedWidget->currentIndex() != 0){
-        ui->stackedWidget->setCurrentIndex(0);
-    }
-}
 
 
 
@@ -66,11 +61,11 @@ void Programming::on_pushButton_2_clicked()
     serial->close();
 }
 
-void Programming::on_comBox_currentIndexChanged(int index)
+/*void Programming::on_comBox_currentIndexChanged(int index)
 {
 
     comNameChanged1(index);
-}
+}*/
 
 void Programming::on_Task1_clicked()
 {   ui->pushButton_7->setIcon(QPixmap(":/Icons/LampFire.png"));

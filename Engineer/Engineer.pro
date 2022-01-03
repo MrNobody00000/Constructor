@@ -48,6 +48,4 @@ RESOURCES += \
     resources.qrc
 
 FORMS += \
-    form.ui \
-    programming.ui \
-    programming2.ui
+    form.ui

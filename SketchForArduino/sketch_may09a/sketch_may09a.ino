@@ -7,22 +7,20 @@
 #include "Parser.h"
 
 
-#define TPin A1// пин подключения датчика температуры
-#define sensorPin A3
-#define MSPin A5
+#define TPin A1       // пин датчика температуры
+#define sensorPin A3  // пин датчика уровня
+#define MSPin A5      // пин датчика влажности
 #define sensorPower 2
-#define PumpPin 13
 #define LED_COUNT 2
-#define LED_PIN 10
-#define servoPin 11
+#define LED_PIN 10    // пин ленты
+#define servoPin 11   // пин сервопривода
 
 Servo Servo1;
 
 OneWire TempValue(TPin);
 DallasTemperature TSensor(&TempValue);
 
-   int MSValue=0;   //  changed -> MSValue = 0;
-   int pumpcomm;
+   int MSValue=0;  
   
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
@@ -38,8 +36,7 @@ void setup()
  // уровень
     // Настраиваем D7 на выход
   pinMode(sensorPower, OUTPUT);
-  digitalWrite(sensorPower, LOW);
-  pinMode(PumpPin,OUTPUT);   
+  digitalWrite(sensorPower, LOW);  
     }
    
 void loop()
@@ -49,11 +46,11 @@ void loop()
    int counter = 0;
    if ((Serial.available()>1 /*& (am & millis() - tmr >50)*/)){
      char str[30];
-     int amount = Serial.readBytesUntil(';',str,30);   // TERMINATOR = ';'
+     int amount = Serial.readBytesUntil(';',str,30);   
     str[amount] = NULL;
 
      Parser cata(str,',');
-     int am = cata.split();
+     int am = cata.split();     //Разделить входящее сообщение на команду и параметры
      for (int i =0; i<am;i++) data[i] = atoi(cata[i]);
 
    
@@ -92,27 +89,20 @@ void loop()
       float TValue = TSensor.getTempCByIndex(0);
       
 
-      digitalWrite(sensorPower, HIGH);  // Включить датчик
-      delay(10);                        // Ждать 10 миллисекунд
+      digitalWrite(sensorPower, HIGH);    // Включить датчик
+      delay(10);                          // Ждать 10 миллисекунд
       int level = analogRead(sensorPin);  // Прочитать аналоговое значение от датчика
-      digitalWrite(sensorPower, LOW);
+      digitalWrite(sensorPower, LOW);     // Отключить датчик
 
       int MSValue = analogRead(MSPin);
       float MSconv = MSValue * 0.073;
-
-      int i = 0;
-      char sendData[30];
+      
       vals = (String(TValue) + ',' + String(level) + ',' + String(MSconv) );
 
       Serial.println(vals);
       data[0] = ' ';       
     break;
-    case(7):
-    delay(data[1]);
-    break;
     default: break;
-
-    Serial.print('f');
       
   }
 

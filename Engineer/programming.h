@@ -48,13 +48,12 @@ private slots:
 
     void on_pushButton_2_clicked();
 
-    void on_comBox_currentIndexChanged(int index);
+    //void on_comBox_currentIndexChanged(int index);
 
     void on_Task1_clicked();
 
     void backClicked();
 
-    void checkOutPage();
 
     void on_pushButton_3_clicked();
 
@@ -74,7 +73,9 @@ private slots:
 
     void sendRGB(std::string, int count);
 
+
     void pushIcon(int n);
+
 
     void on_Task2_clicked();
 

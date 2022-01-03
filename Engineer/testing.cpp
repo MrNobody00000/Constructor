@@ -83,48 +83,28 @@ void Testing::layoutWidgets()
     inputBox->setLayout(inputLayout);
     inputLayout->addWidget(tempLabel,0,0);
     inputLayout->addWidget(tempValue,0,0,Qt::AlignBottom | Qt::AlignCenter);
-    inputLayout->addWidget(tempCheck,0,0,Qt::AlignTop | Qt::AlignRight);
-    //inputLayout->addWidget(dcLabel,0,1);
-    //inputLayout->addWidget(dcValue,0,1,Qt::AlignBottom | Qt::AlignCenter);
-    //inputLayout->addWidget(dcCheck,0,1,Qt::AlignTop | Qt::AlignRight);
-    //inputLayout->addWidget(motioLabel,0,2);
-    //inputLayout->addWidget(motioValue,0,2,Qt::AlignBottom | Qt::AlignCenter);
-    //inputLayout->addWidget(motioCheck,0,2,Qt::AlignTop | Qt::AlignRight);
-    inputLayout->addWidget(moistLabel,0,3);
-    inputLayout->addWidget(moistValue,0,3,Qt::AlignBottom | Qt::AlignCenter);
-    inputLayout->addWidget(moistCheck,0,3,Qt::AlignTop | Qt::AlignRight);
-    //inputLayout->addWidget(voiceLabel,0,4);
-    //inputLayout->addWidget(voiceValue,0,4,Qt::AlignBottom | Qt::AlignCenter);
-    //inputLayout->addWidget(voiceCheck,0,4,Qt::AlignTop | Qt::AlignRight);
-    inputLayout->addWidget(levelLabel,0,5);
-    inputLayout->addWidget(levelValue,0,5,Qt::AlignBottom | Qt::AlignCenter);
-    inputLayout->addWidget(levelCheck,0,5,Qt::AlignTop | Qt::AlignRight);
-    inputLayout->addWidget(comNumber,1,5,Qt::AlignBottom | Qt::AlignCenter);
+    inputLayout->addWidget(moistLabel,0,1);
+    inputLayout->addWidget(moistValue,0,1,Qt::AlignBottom | Qt::AlignCenter);
+    inputLayout->addWidget(levelLabel,0,2);
+    inputLayout->addWidget(levelValue,0,2,Qt::AlignBottom | Qt::AlignCenter);
+    inputLayout->addWidget(comNumber,1,2,Qt::AlignBottom | Qt::AlignCenter);
 
-    inputLayout->addWidget(getValuesButton,1,5,Qt::AlignRight);
+    inputLayout->addWidget(getValuesButton,1,2,Qt::AlignRight);
 
     outputBox->setLayout(outputLayout);
-    //outputLayout->addWidget(pumpLabel,0,0);
-    //outputLayout->addWidget(pumpSwitch,1,0,Qt::AlignBottom | Qt::AlignCenter);
     outputLayout->addWidget(sdLabel,0,1);
-    //outputLayout->addWidget(sdAngle,1,1,Qt::AlignBottom | Qt::AlignCenter);
     outputLayout->addWidget(sdControl,2,1,Qt::AlignBottom | Qt::AlignCenter);
     outputLayout->addWidget(ledLabel,0,2);
     outputLayout->addWidget(ledColor,1,2,Qt::AlignBottom | Qt::AlignRight);
-
     outputLayout->addWidget(RColor,1,2,Qt::AlignCenter | Qt::AlignCenter);
     outputLayout->addWidget(GColor,2,2,Qt::AlignCenter | Qt::AlignCenter);
     outputLayout->addWidget(BColor,3,2,Qt::AlignCenter | Qt::AlignCenter);
-
     outputLayout->addWidget(RLabel,1,2,Qt::AlignCenter | Qt::AlignLeft);
     outputLayout->addWidget(GLabel,2,2,Qt::AlignCenter | Qt::AlignLeft);
     outputLayout->addWidget(BLabel,3,2,Qt::AlignCenter | Qt::AlignLeft);
+    inputLayout->addWidget(inCom,1,2,Qt::AlignBottom | Qt::AlignLeft);
+    inputLayout->addWidget(breakBut,1,2,Qt::AlignBottom | Qt::AlignLeft);
 
-    inputLayout->addWidget(inCom,1,5,Qt::AlignBottom | Qt::AlignLeft);
-    inputLayout->addWidget(breakBut,1,4,Qt::AlignBottom | Qt::AlignLeft);
-
-    //const QStringList text{"off","green","red","blue"};
-    //ledColor->addItems(text);
 
 }
 void Testing::widgetSettings()
@@ -146,28 +126,18 @@ void Testing::widgetSettings()
     outputBox->setAlignment(Qt::AlignCenter);
 
     tempLabel->setAlignment(Qt::AlignCenter);
-    //dcLabel->setAlignment(Qt::AlignCenter);
-    //motioLabel->setAlignment(Qt::AlignCenter);
     moistLabel->setAlignment(Qt::AlignCenter);
-    //voiceLabel->setAlignment(Qt::AlignCenter);
     levelLabel->setAlignment(Qt::AlignCenter);
 
-    //pumpLabel->setAlignment(Qt::AlignCenter);
     sdLabel->setAlignment(Qt::AlignCenter);
     ledLabel->setAlignment(Qt::AlignCenter);
 
     tempValue->setReadOnly(true);
-    //dcValue->setReadOnly(true);
-//    motioValue->setReadOnly(true);
     moistValue->setReadOnly(true);
-//    voiceValue->setReadOnly(true);
     levelValue->setReadOnly(true);
 
     tempValue->setFixedWidth(100);
-//    dcValue->setFixedWidth(100);
- //   motioValue->setFixedWidth(100);
     moistValue->setFixedWidth(100);
-   // voiceValue->setFixedWidth(100);
     levelValue->setFixedWidth(100);
 
     sdControl->setRange(0,180);
@@ -187,13 +157,9 @@ void Testing::widgetSettings()
 
     QSize size = qApp->screens()[0]->size();
     tempLabel->setPixmap(QPixmap(":/Icons/tempL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    //dcLabel->setPixmap(QPixmap(":/Icons/dcL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    //motioLabel->setPixmap(QPixmap(":/Icons/motioL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
     moistLabel->setPixmap(QPixmap(":/Icons/moistL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
-    //voiceLabel->setPixmap(QPixmap(":/Icons/voiceL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
     levelLabel->setPixmap(QPixmap(":/Icons/levelL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
-    //pumpLabel->setPixmap(QPixmap(":/Icons/pumpL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
     sdLabel->setPixmap(QPixmap(":/Icons/sdL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
     ledLabel->setPixmap(QPixmap(":/Icons/ledL.png").scaled(size.width()/8,size.height()/3,Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
@@ -260,27 +226,6 @@ void Testing::Get(){
        for (int i=0;i<30;i++) str[i] = ' ';
     }
 
-   /* if (serial->bytesAvailable()){
-        for (i=0; i<30;i++){
-            serial->read(getData,30);
-            data[3].push_back(getData[i]);*/
-            //if (getData[i] == ';') break;
-      //  }
-       /* serial->read(getData,30);
-        while(getData[i-1] !=';'){
-            serial->read(getData,30);
-            i++;
-        }*/
-
-    /*getData[i] = NULL;
-    char  *rest = NULL;
-    char *token;
-    for (token = strtok_s(getData,",",&rest);   //DELIMITER = ","
-    token!=NULL;
-    token = strtok_s(NULL,",",&rest)){
-       data[counter] = (token);
-       counter++;
-       }*/
     tempValue->insert(data[0]);
     levelValue->insert(data[1]);
     moistValue->insert(data[2]);
@@ -291,74 +236,6 @@ void Testing::Get(){
 
     }
 
-
-
-
-/*void Testing::Get()
-{   tempValue->clear();
-    moistValue->clear();
-    levelValue->clear();
-
-    if (tempCheck->checkState()){
-        serial->setPortName(com);
-        char l[] = {'6','\n'};
-        serial->write(l);
-        serial->waitForReadyRead();
-
-        char buffer[9];
-        QString buff;
-        for(int i=0;i<9;i++){
-            serial->read(buffer,9);
-            if ((int(buffer[i]) >= 48 && int(buffer[i]) <= 57) || (int(buffer[i]) == 46))
-            {buff.push_back(buffer[i]);}
-            else continue;
-
-        }
-        tempValue->insert(buff);
-        buff.clear();
-        Sleep(10);
-    }
-
-
-    if (moistCheck->checkState()){
-        serial->setPortName(com);
-        char l[] = {'8','\n'};
-        serial->write(l);
-        serial->waitForReadyRead();
-        char buffer[11];
-        QString buff;
-        for(int i=0;i<11;i++){
-            serial->read(buffer,11);
-            if ((int(buffer[i]) >= 48 && int(buffer[i]) <= 57) || (int(buffer[i]) == 46))
-            {buff.push_back(buffer[i]);}
-            else continue;
-        }
-        moistValue->insert(buff);
-        buff.clear();
-        Sleep(10);
-    }
-    if (levelCheck->checkState()){
-        serial->setPortName(com);
-        char l[] = {'7','\n'};
-        serial->write(l);
-        serial->waitForReadyRead();
-
-        char buffer[7];
-        QString buff;
-        for(int i=0;i<7;i++){
-            serial->read(buffer,7);
-            if ((int(buffer[i]) >= 48 && int(buffer[i]) <= 57) || (int(buffer[i]) == 46))
-            {buff.push_back(buffer[i]);}
-            else continue;
-        }
-
-        levelValue->insert(buff);
-
-        buff.clear();
-        Sleep(10);
-    }
-
-}*/
 
 void Testing::clickedaction(){
     int i=0;
