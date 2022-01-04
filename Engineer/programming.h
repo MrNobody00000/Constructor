@@ -52,7 +52,6 @@ private slots:
 
     void on_Task1_clicked();
 
-    void backClicked();
 
 
     void on_pushButton_3_clicked();
@@ -95,7 +94,7 @@ private slots:
 
     void on_pushButton_13_clicked();
 
-    void Temp(int first, int sec);
+    void Temp(int first, int sec, int count);
 
 private:
    Ui::Form *ui;

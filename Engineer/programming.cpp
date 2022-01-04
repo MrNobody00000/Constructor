@@ -17,6 +17,10 @@ Programming::Programming(GreetingWindow *parent)
     this->showMaximized();
     serial = new QSerialPort(this);
     connect(ui->comBox,SIGNAL(activated(int)),SLOT(comNameChanged1(int)));
+    if(ui->stackedWidget->currentIndex() != 0){
+        ui->pushButton_3->setEnabled(1);
+    }
+
     //CheckComs1();
     //comNameChanged1(0);
     //checkOutPage();
@@ -95,19 +99,19 @@ void Programming::on_Task2_clicked()
     ui->stackedWidget->setCurrentIndex(2);
     ui->label_14->setPixmap(QPixmap(":/Icons/TrueFalse.png"));
     ui->label_17->setPixmap(QPixmap(":/Icons/EndTrueFalse.png"));
-    ui->label_14->setFixedSize(QSize(200,100));
-    ui->label_17->setFixedSize(QSize(200,100));
+    ui->label_14->setFixedSize(QSize(400,200));
+    ui->label_17->setFixedSize(QSize(400,200));
     ui->pushButton_16->setIcon(QPixmap(":/Icons/R.png"));
     ui->pushButton_15->setIcon(QPixmap(":/Icons/Green.png"));
     ui->pushButton_18->setIcon(QPixmap(":/Icons/B.png"));
     ui->pushButton_17->setIcon(QPixmap(":/Icons/Temp.png"));
-    ui->pushButton_20->setIcon(QPixmap(":/Icons/More2.png"));
+    ui->pushButton_20->setIcon(QPixmap(":/Icons/More.png"));
 
-    ui->pushButton_16->setIconSize(QSize(150,150));
-    ui->pushButton_15->setIconSize(QSize(150,150));
-    ui->pushButton_18->setIconSize(QSize(75,75));
-    ui->pushButton_17->setIconSize(QSize(75,75));
-    ui->pushButton_20->setIconSize(QSize(75,75));
+    ui->pushButton_16->setIconSize(QSize(236,179));
+    ui->pushButton_15->setIconSize(QSize(236,179));
+    ui->pushButton_18->setIconSize(QSize(236,179));
+    ui->pushButton_17->setIconSize(QSize(236,179));
+    ui->pushButton_20->setIconSize(QSize(236,179));
     ui->pushButton_3->setEnabled(1);
     Programming::RightAns = {3,6};
 }
@@ -115,9 +119,6 @@ void Programming::on_Task2_clicked()
 
 
 
-void Programming::backClicked(){
-        ui->stackedWidget->setCurrentIndex(0);
-}
 
 void Programming::on_pushButton_3_clicked()
 {
@@ -143,7 +144,7 @@ void Programming::on_pushButton_6_clicked()
     pushIcon(3);
 }
 
-void Programming::on_pushButton_11_clicked()
+void Programming::on_pushButton_11_clicked()    //Clear on page Task 1
 {
     ui->label_3->setPixmap(QPixmap());
     ui->label_5->setPixmap(QPixmap());
@@ -170,14 +171,16 @@ void Programming::on_pushButton_13_clicked()
             break;
         }
     }
-
-    if(!wrongAns){
-        Temp(Programming::SuggestedAns[2],Programming::SuggestedAns[3]);
+    if(!serial->bytesAvailable()){
+        QMessageBox::information(0,"Ошибка","Порт не подключен");
+    }
+    else if(!wrongAns){
+        Temp(Programming::SuggestedAns[2],Programming::SuggestedAns[3],8);
     }
 
 }
 
-void Programming::Temp(int first, int sec){
+void Programming::Temp(int first, int sec, int count){
     serial->write("6;0;");
     //serial->QSerialPort::waitForBytesWritten(-1);
 
@@ -222,17 +225,16 @@ void Programming::Temp(int first, int sec){
            }
        }
     }
+    auto time2 = std::chrono::system_clock::now();
+    while(std::chrono::system_clock::now() - time2 < std::chrono::milliseconds(400) ){}
+    count--;
+    if(count > 0) Temp(first, sec, count);
+    else if(count ==0) serial->write("2,0,0,0;");
 }
 
 void Programming::on_pushButton_10_clicked()
 {
-    if(std::equal(Programming::SuggestedAns.begin(),Programming::SuggestedAns.end(),Programming::RightAns.begin())){
-
-        sendRGB("2,244,244,244;",9);
-
-    }
-    else
-    {
+    if(!std::equal(Programming::SuggestedAns.begin(),Programming::SuggestedAns.end(),Programming::RightAns.begin())){
         QMessageBox::information(0, "Ошибка", "Неверно. Попробуй еще раз");
         ui->label_3->setPixmap(QPixmap());
         ui->label_5->setPixmap(QPixmap());
@@ -240,6 +242,12 @@ void Programming::on_pushButton_10_clicked()
         ui->label_9->setPixmap(QPixmap());
         Programming::IconNum=0;
         Programming::SuggestedAns.clear();
+
+    }
+    else if(!serial->bytesAvailable()) QMessageBox::information(0,"Ошибка","Порт не подключен");
+    else
+    {
+        sendRGB("2,244,244,244;",9);
     }
 
 }
@@ -261,6 +269,7 @@ void Programming::sendRGB(std::string data,int count){
         while(std::chrono::system_clock::now() - time2 < std::chrono::milliseconds(1000) ){}
         serial->write(data.c_str());
         serial->QSerialPort::waitForBytesWritten(-1);
+
         if(data == "2,244,244,244;")
         {
             sendRGB("2,0,0,0;",count-1);
@@ -356,23 +365,23 @@ void Programming::pushIcon(int n){
         case(1):
             switch(Programming::IconNum){
             case(0):
-                ui->label_12->setPixmap(QPixmap(":/Icons/Green.png"));
+                ui->label_12->setPixmap(QPixmap(":/Icons/GreenMini.png"));
                 ui->label_12->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
             case(1):
-                ui->label_13->setPixmap(QPixmap(":/Icons/Green.png"));
+                ui->label_13->setPixmap(QPixmap(":/Icons/GreenMini.png"));
                 ui->label_13->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
 
             case(2):
-                ui->label_15->setPixmap(QPixmap(":/Icons/Green.png"));
+                ui->label_15->setPixmap(QPixmap(":/Icons/GreenMini.png"));
                 ui->label_15->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
             case(3):
-                ui->label_16->setPixmap(QPixmap(":/Icons/Green.png"));
+                ui->label_16->setPixmap(QPixmap(":/Icons/GreenMini.png"));
                 ui->label_16->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
@@ -381,23 +390,23 @@ void Programming::pushIcon(int n){
         case(2):
             switch(Programming::IconNum){
             case(0):
-                ui->label_12->setPixmap(QPixmap(":/Icons/R.png"));
+                ui->label_12->setPixmap(QPixmap(":/Icons/RMini.png"));
                 ui->label_12->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
             case(1):
-                ui->label_13->setPixmap(QPixmap(":/Icons/R.png"));
+                ui->label_13->setPixmap(QPixmap(":/Icons/RMini.png"));
                 ui->label_13->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
 
             case(2):
-                ui->label_15->setPixmap(QPixmap(":/Icons/R.png"));
+                ui->label_15->setPixmap(QPixmap(":/Icons/RMini.png"));
                 ui->label_15->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
             case(3):
-                ui->label_16->setPixmap(QPixmap(":/Icons/R.png"));
+                ui->label_16->setPixmap(QPixmap(":/Icons/RMini.png"));
                 ui->label_16->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
@@ -406,23 +415,23 @@ void Programming::pushIcon(int n){
         case(3):
             switch(Programming::IconNum){
             case(0):
-                ui->label_12->setPixmap(QPixmap(":/Icons/Temp.png"));
+                ui->label_12->setPixmap(QPixmap(":/Icons/TempMini.png"));
                 ui->label_12->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
             case(1):
-                ui->label_13->setPixmap(QPixmap(":/Icons/Temp.png"));
+                ui->label_13->setPixmap(QPixmap(":/Icons/TempMini.png"));
                 ui->label_13->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
 
             case(2):
-                ui->label_15->setPixmap(QPixmap(":/Icons/Temp.png"));
+                ui->label_15->setPixmap(QPixmap(":/Icons/TempMini.png"));
                 ui->label_15->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
             case(3):
-                ui->label_16->setPixmap(QPixmap(":/Icons/Temp.png"));
+                ui->label_16->setPixmap(QPixmap(":/Icons/TempMini.png"));
                 ui->label_16->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
@@ -431,23 +440,23 @@ void Programming::pushIcon(int n){
         case(4):
             switch(Programming::IconNum){
             case(0):
-                ui->label_12->setPixmap(QPixmap(":/Icons/B.png"));
+                ui->label_12->setPixmap(QPixmap(":/Icons/BMini.png"));
                 ui->label_12->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
             case(1):
-                ui->label_13->setPixmap(QPixmap(":/Icons/B.png"));
+                ui->label_13->setPixmap(QPixmap(":/Icons/BMini.png"));
                 ui->label_13->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
 
             case(2):
-                ui->label_15->setPixmap(QPixmap(":/Icons/B.png"));
+                ui->label_15->setPixmap(QPixmap(":/Icons/BMini.png"));
                 ui->label_15->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
             case(3):
-                ui->label_16->setPixmap(QPixmap(":/Icons/B.png"));
+                ui->label_16->setPixmap(QPixmap(":/Icons/BMini.png"));
                 ui->label_16->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
@@ -457,23 +466,23 @@ void Programming::pushIcon(int n){
         case(6):
             switch(Programming::IconNum){
             case(0):
-                ui->label_12->setPixmap(QPixmap(":/Icons/More2.png"));
+                ui->label_12->setPixmap(QPixmap(":/Icons/MoreMini.png"));
                 ui->label_12->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
             case(1):
-                ui->label_13->setPixmap(QPixmap(":/Icons/More2.png"));
+                ui->label_13->setPixmap(QPixmap(":/Icons/MoreMini.png"));
                 ui->label_13->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
 
             case(2):
-                ui->label_15->setPixmap(QPixmap(":/Icons/More2.png"));
+                ui->label_15->setPixmap(QPixmap(":/Icons/MoreMini.png"));
                 ui->label_15->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
             case(3):
-                ui->label_16->setPixmap(QPixmap(":/Icons/More2.png"));
+                ui->label_16->setPixmap(QPixmap(":/Icons/MoreMini.png"));
                 ui->label_16->setFixedSize(QSize(75,75));
                 Programming::IconNum++;
                 break;
@@ -486,8 +495,12 @@ void Programming::pushIcon(int n){
     }
 }
 
-void Programming::on_pushButton_14_clicked()
+void Programming::on_pushButton_14_clicked()        //Clear on page Task_2
 {
+    ui->label_12->setPixmap(QPixmap());
+    ui->label_13->setPixmap(QPixmap());
+    ui->label_15->setPixmap(QPixmap());
+    ui->label_16->setPixmap(QPixmap());
     Programming::IconNum=0;
     Programming::SuggestedAns.clear();
 }

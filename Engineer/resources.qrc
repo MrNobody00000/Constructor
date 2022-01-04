@@ -23,11 +23,16 @@
         <file>Icons/LampDisMini2.png</file>
         <file>Icons/TimeMini.png</file>
         <file>Icons/B.png</file>
-        <file>Icons/EndTrueFalse.png</file>
         <file>Icons/Green.png</file>
         <file>Icons/R.png</file>
+        <file>Icons/GreenMini.png</file>
+        <file>Icons/RMini.png</file>
+        <file>Icons/BMini.png</file>
+        <file>Icons/TempMini.png</file>
+        <file>Icons/MoreMini.png</file>
+        <file>Icons/More.png</file>
         <file>Icons/Temp.png</file>
+        <file>Icons/EndTrueFalse.png</file>
         <file>Icons/TrueFalse.png</file>
-        <file>Icons/More2.png</file>
     </qresource>
 </RCC>
