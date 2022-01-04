@@ -188,7 +188,7 @@ void Testing::readSerialPortS()
 }
 void Testing::sdStart()
 {
-
+    if(serial->bytesAvailable()){
     int i=0;
     char str[30];
     std::string data = {"1,"+std::to_string(sdControl->value())+';'};
@@ -199,9 +199,12 @@ void Testing::sdStart()
         }
     str[i] = data[i];
     serial->write(str);
+    }
+    else QMessageBox::information(0,"Ошибка","Порт не подключен");
 }
 
 void Testing::Get(){
+    if(serial->bytesAvailable()){
     serial->setPortName(comNumber->currentText());
     tempValue->clear();
     moistValue->clear();
@@ -235,9 +238,12 @@ void Testing::Get(){
     data[3].clear();
 
     }
+    else QMessageBox::information(0,"Ошибка","Порт не подключен");
+}
 
 
 void Testing::clickedaction(){
+    if(serial->bytesAvailable()){
     int i=0;
     char str[30];
     std::string data = {"2,"+std::to_string(RColor->value())+','+std::to_string(GColor->value())+','+std::to_string(BColor->value())+';'};
@@ -248,6 +254,8 @@ void Testing::clickedaction(){
         }
     str[i] = data[i];
     serial->write(str);
+    }
+    else QMessageBox::information(0,"Ошибка","Порт не подключен");
 }
 
 void Testing::CheckComs(){

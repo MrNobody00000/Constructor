@@ -16,6 +16,7 @@
 #include <QScreen>
 #include <QDial>
 #include <QDesktopWidget>
+#include <QMessageBox>
 #include "greetingwindow.h"
 #include<string.h>
 

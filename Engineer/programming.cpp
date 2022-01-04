@@ -18,7 +18,8 @@ Programming::Programming(GreetingWindow *parent)
     serial = new QSerialPort(this);
     connect(ui->comBox,SIGNAL(activated(int)),SLOT(comNameChanged1(int)));
     if(ui->stackedWidget->currentIndex() != 0){
-        ui->pushButton_3->setEnabled(1);
+        ui->stackedWidget->setCurrentIndex(0);
+
     }
 
     //CheckComs1();
@@ -91,7 +92,7 @@ void Programming::on_Task1_clicked()
     ui->pushButton_9->setIconSize(QSize(236,179));
     ui->stackedWidget->setCurrentIndex(1);
     ui->pushButton_3->setEnabled(1);
-    Programming::RightAns = {1,2,3,2};
+
 }
 
 void Programming::on_Task2_clicked()
@@ -157,25 +158,28 @@ void Programming::on_pushButton_11_clicked()    //Clear on page Task 1
 
 void Programming::on_pushButton_13_clicked()
 {   bool wrongAns=0;
-    for(int i=0;i<2;i++){
-        if(Programming::RightAns[i] != Programming::SuggestedAns[i] || Programming::IconNum !=4){
-            QMessageBox::information(0,"Ошибка","Неверно. Попробуй еще раз");
-            ui->label_12->setPixmap(QPixmap());
-            ui->label_13->setPixmap(QPixmap());
-            ui->label_15->setPixmap(QPixmap());
-            ui->label_16->setPixmap(QPixmap());
-            Programming::IconNum=0;
-            Programming::SuggestedAns.clear();
-            serial->write("2,0,0,0");
-            wrongAns=1;
-            break;
+    if(Programming::SuggestedAns.empty())QMessageBox::information(0,"Ошибка","Заполни ячейки");
+    else{
+        for(int i=0;i<2;i++){
+            if(Programming::RightAns[i] != Programming::SuggestedAns[i] || Programming::IconNum !=4){
+                QMessageBox::information(0,"Ошибка","Неверно. Попробуй еще раз");
+                ui->label_12->setPixmap(QPixmap());
+                ui->label_13->setPixmap(QPixmap());
+                ui->label_15->setPixmap(QPixmap());
+                ui->label_16->setPixmap(QPixmap());
+                Programming::IconNum=0;
+                Programming::SuggestedAns.clear();
+                serial->write("2,0,0,0");
+                wrongAns=1;
+                break;
+            }
         }
-    }
-    if(!serial->bytesAvailable()){
-        QMessageBox::information(0,"Ошибка","Порт не подключен");
-    }
-    else if(!wrongAns){
-        Temp(Programming::SuggestedAns[2],Programming::SuggestedAns[3],8);
+        if(!serial->bytesAvailable()){
+            QMessageBox::information(0,"Ошибка","Порт не подключен");
+        }
+        else if(!wrongAns){
+            Temp(Programming::SuggestedAns[2],Programming::SuggestedAns[3],8);
+        }
     }
 
 }
@@ -191,7 +195,7 @@ void Programming::Temp(int first, int sec, int count){
 
        Parser cata(str,',');
        cata.split();
-
+       ui->TempValue->insert(cata[0]);
        if(atoi(cata[0]) > 25){
            switch(first){
            case(1):
@@ -234,7 +238,14 @@ void Programming::Temp(int first, int sec, int count){
 
 void Programming::on_pushButton_10_clicked()
 {
-    if(!std::equal(Programming::SuggestedAns.begin(),Programming::SuggestedAns.end(),Programming::RightAns.begin())){
+    bool ans1, ans2;
+    if(Programming::SuggestedAns.empty()) QMessageBox::information(0,"Ошибка","Заполни ячейки");
+    else {
+    ans1 = ((Programming::SuggestedAns[0] == Programming::SuggestedAns[2]) && (Programming::SuggestedAns[1] != Programming::SuggestedAns[3])
+            && (Programming::SuggestedAns[1] != 2) && (Programming::SuggestedAns[3] != 2));
+    ans2 = ((Programming::SuggestedAns[1] == Programming::SuggestedAns[3]) && (Programming::SuggestedAns[0] != Programming::SuggestedAns[2])
+            && (Programming::SuggestedAns[0] != 2) && (Programming::SuggestedAns[2] != 2));
+    if(!(ans1 || ans2)){
         QMessageBox::information(0, "Ошибка", "Неверно. Попробуй еще раз");
         ui->label_3->setPixmap(QPixmap());
         ui->label_5->setPixmap(QPixmap());
@@ -248,6 +259,7 @@ void Programming::on_pushButton_10_clicked()
     else
     {
         sendRGB("2,244,244,244;",9);
+    }
     }
 
 }
