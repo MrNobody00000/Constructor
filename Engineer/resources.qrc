@@ -34,5 +34,7 @@
         <file>Icons/Temp.png</file>
         <file>Icons/EndTrueFalse.png</file>
         <file>Icons/TrueFalse.png</file>
+        <file>Icons/Borders75.png</file>
+        <file>Icons/Borders103.png</file>
     </qresource>
 </RCC>

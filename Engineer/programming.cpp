@@ -21,11 +21,6 @@ Programming::Programming(GreetingWindow *parent)
         ui->stackedWidget->setCurrentIndex(0);
 
     }
-
-    //CheckComs1();
-    //comNameChanged1(0);
-    //checkOutPage();
-    //setIm();
 }
 
 Programming::~Programming()
@@ -82,6 +77,11 @@ void Programming::on_Task1_clicked()
     ui->label_6->setPixmap(QPixmap(":/Icons/StrelkaMini.png"));
     ui->label_8->setPixmap(QPixmap(":/Icons/StrelkaMini.png"));
 
+    ui->label_3->setPixmap(QPixmap(":/Icons/Borders103.png"));
+    ui->label_5->setPixmap(QPixmap(":/Icons/Borders103.png"));
+    ui->label_7->setPixmap(QPixmap(":/Icons/Borders103.png"));
+    ui->label_9->setPixmap(QPixmap(":/Icons/Borders103.png"));
+
     ui->label_2->setFixedSize(QSize(50,100));
     ui->label_4->setFixedSize(QSize(25,50));
     ui->label_6->setFixedSize(QSize(25,50));
@@ -100,13 +100,19 @@ void Programming::on_Task2_clicked()
     ui->stackedWidget->setCurrentIndex(2);
     ui->label_14->setPixmap(QPixmap(":/Icons/TrueFalse.png"));
     ui->label_17->setPixmap(QPixmap(":/Icons/EndTrueFalse.png"));
-    ui->label_14->setFixedSize(QSize(400,200));
-    ui->label_17->setFixedSize(QSize(400,200));
+    ui->label_12->setPixmap(QPixmap(":/Icons/Borders75.png"));
+    ui->label_13->setPixmap(QPixmap(":/Icons/Borders75.png"));
+    ui->label_15->setPixmap(QPixmap(":/Icons/Borders75.png"));
+    ui->label_16->setPixmap(QPixmap(":/Icons/Borders75.png"));
+
     ui->pushButton_16->setIcon(QPixmap(":/Icons/R.png"));
     ui->pushButton_15->setIcon(QPixmap(":/Icons/Green.png"));
     ui->pushButton_18->setIcon(QPixmap(":/Icons/B.png"));
     ui->pushButton_17->setIcon(QPixmap(":/Icons/Temp.png"));
     ui->pushButton_20->setIcon(QPixmap(":/Icons/More.png"));
+
+    ui->label_14->setFixedSize(QSize(400,200));
+    ui->label_17->setFixedSize(QSize(400,200));
 
     ui->pushButton_16->setIconSize(QSize(236,179));
     ui->pushButton_15->setIconSize(QSize(236,179));
@@ -148,34 +154,32 @@ void Programming::on_pushButton_6_clicked()
 
 void Programming::on_pushButton_11_clicked()    //Clear on page Task 1
 {
-    ui->label_3->setPixmap(QPixmap());
-    ui->label_5->setPixmap(QPixmap());
-    ui->label_7->setPixmap(QPixmap());
-    ui->label_9->setPixmap(QPixmap());
+    ui->label_3->setPixmap(QPixmap(":/Icons/Borders103.png"));
+    ui->label_5->setPixmap(QPixmap(":/Icons/Borders103.png"));
+    ui->label_7->setPixmap(QPixmap(":/Icons/Borders103.png"));
+    ui->label_9->setPixmap(QPixmap(":/Icons/Borders103.png"));
     Programming::IconNum=0;
     Programming::SuggestedAns.clear();
 }
 
 
-void Programming::on_pushButton_13_clicked()
+void Programming::on_pushButton_13_clicked()    //Send_button on Task 2
 {   bool wrongAns=0;
-    if(Programming::SuggestedAns.empty())QMessageBox::information(0,"Ошибка","Заполни ячейки");
+    if(Programming::SuggestedAns.empty()){
+        QMessageBox::information(0,"Ошибка","Заполни ячейки");
+        wrongAns = 1;
+    }
     else{
         for(int i=0;i<2;i++){
             if(Programming::RightAns[i] != Programming::SuggestedAns[i] || Programming::IconNum !=4){
                 QMessageBox::information(0,"Ошибка","Неверно. Попробуй еще раз");
-                ui->label_12->setPixmap(QPixmap());
-                ui->label_13->setPixmap(QPixmap());
-                ui->label_15->setPixmap(QPixmap());
-                ui->label_16->setPixmap(QPixmap());
-                Programming::IconNum=0;
-                Programming::SuggestedAns.clear();
+                emit on_pushButton_14_clicked();
                 serial->write("2,0,0,0");
                 wrongAns=1;
                 break;
             }
         }
-        if(!serial->bytesAvailable()){
+        if(!serial->bytesAvailable() && !wrongAns){
             QMessageBox::information(0,"Ошибка","Порт не подключен");
         }
         else if(!wrongAns){
@@ -237,24 +241,18 @@ void Programming::Temp(int first, int sec, int count){
     else if(count ==0) serial->write("2,0,0,0;");
 }
 
-void Programming::on_pushButton_10_clicked()
+void Programming::on_pushButton_10_clicked()    //Send_button on Task1
 {
     bool ans1, ans2;
     if(Programming::SuggestedAns.empty()) QMessageBox::information(0,"Ошибка","Заполни ячейки");
     else {
-    ans1 = ((Programming::SuggestedAns[0] == Programming::SuggestedAns[2]) && (Programming::SuggestedAns[1] != Programming::SuggestedAns[3])
+    ans1 = ((Programming::SuggestedAns[0] == 2) && (Programming::SuggestedAns[2] == 2) && (Programming::SuggestedAns[1] != Programming::SuggestedAns[3])
             && (Programming::SuggestedAns[1] != 2) && (Programming::SuggestedAns[3] != 2));
-    ans2 = ((Programming::SuggestedAns[1] == Programming::SuggestedAns[3]) && (Programming::SuggestedAns[0] != Programming::SuggestedAns[2])
+    ans2 = ((Programming::SuggestedAns[1] == 2) && (Programming::SuggestedAns[3] == 2) && (Programming::SuggestedAns[0] != Programming::SuggestedAns[2])
             && (Programming::SuggestedAns[0] != 2) && (Programming::SuggestedAns[2] != 2));
     if(!(ans1 || ans2)){
         QMessageBox::information(0, "Ошибка", "Неверно. Попробуй еще раз");
-        ui->label_3->setPixmap(QPixmap());
-        ui->label_5->setPixmap(QPixmap());
-        ui->label_7->setPixmap(QPixmap());
-        ui->label_9->setPixmap(QPixmap());
-        Programming::IconNum=0;
-        Programming::SuggestedAns.clear();
-
+        emit on_pushButton_11_clicked();
     }
     else if(!serial->bytesAvailable()) QMessageBox::information(0,"Ошибка","Порт не подключен");
     else
@@ -510,10 +508,10 @@ void Programming::pushIcon(int n){
 
 void Programming::on_pushButton_14_clicked()        //Clear on page Task_2
 {
-    ui->label_12->setPixmap(QPixmap());
-    ui->label_13->setPixmap(QPixmap());
-    ui->label_15->setPixmap(QPixmap());
-    ui->label_16->setPixmap(QPixmap());
+    ui->label_12->setPixmap(QPixmap(":/Icons/Borders75.png"));
+    ui->label_13->setPixmap(QPixmap(":/Icons/Borders75.png"));
+    ui->label_15->setPixmap(QPixmap(":/Icons/Borders75.png"));
+    ui->label_16->setPixmap(QPixmap(":/Icons/Borders75.png"));
     Programming::IconNum=0;
     Programming::SuggestedAns.clear();
 }

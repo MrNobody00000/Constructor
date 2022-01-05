@@ -2,7 +2,7 @@
 #include "greetingwindow.h"
 #include "Parser.h"
 
-QString com = "COM3";
+//QString com = "COM3";
 Testing::Testing(GreetingWindow *parent) : QWidget(parent)
 {
     fromHead = parent;
@@ -40,28 +40,16 @@ void Testing::createWidgets()
     tempLabel   = new QLabel;
     tempValue   = new QLineEdit;
     tempCheck   = new QCheckBox;
-    //dcLabel     = new QLabel;
-    //dcValue     = new QLineEdit;
-    //dcCheck     = new QCheckBox;
-    //motioLabel  = new QLabel;
-    //motioValue  = new QLineEdit;
-    //motioCheck  = new QCheckBox;
     moistLabel  = new QLabel;
     moistValue  = new QLineEdit;
     moistCheck  = new QCheckBox;
-   //voiceLabel  = new QLabel;
-   // voiceValue  = new QLineEdit;
-    //voiceCheck  = new QCheckBox;
     levelLabel  = new QLabel;
     levelValue  = new QLineEdit;
     levelCheck  = new QCheckBox;
     //Output vars
     outputBox       = new QGroupBox;
     outputLayout    = new QGridLayout;
-    //pumpLabel   = new QLabel;
-    //pumpSwitch  = new QPushButton;
     sdLabel     = new QLabel;
-    //sdAngle     = new QPushButton("Отправить пакет");
     sdControl   = new QDial;
     ledLabel    = new QLabel;
     ledColor    = new QPushButton("Отправить пакет");
