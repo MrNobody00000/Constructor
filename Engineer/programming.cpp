@@ -121,8 +121,9 @@ void Programming::on_Task2_clicked()
 
 
 
-void Programming::on_pushButton_3_clicked()
-{
+void Programming::on_pushButton_3_clicked()     //back_button programming
+{   emit on_pushButton_11_clicked();
+    emit on_pushButton_14_clicked();
     ui->stackedWidget->setCurrentIndex(0);
     ui->pushButton_3->setEnabled(0);
 }
